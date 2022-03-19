@@ -1,28 +1,32 @@
 <template name="publicPageManageShop">
-    {{#let _categories=(state.get 'categories')}}  
+    {{#let _categories=(state.get 'categories') _selectedCategory=(state.get 'selectedCategory')}}  
     <div class="container py-2">
 
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <h4 class="fw-bold">Kategoriler</h4>
                 <ul class="list-group">
                     {{#each _categories}}
-                    <li class="list-group-item"> 
-                          <a href="#" class="brd-categories-select text-dark">{{name}}</a> 
-                          <button type="delete" class="btn btn-primary " style="float:right">Delete</button>
+                    <li class="list-group-item {{#if eq _id _selectedCategory._id}}active{{/if}}"> 
+                          <a href="#" class="brd-category-select text-dark" style="font-size:15px">{{name}}</a> 
+                          <button class="btn btn-danger categoryDel" style="float:right">Delete</button>
                     </li>
                     {{/each}}
                   </ul>
-
+                  <hr>
                 <form id="brdCategoryCreateForm" class="d-flex gap-2 flex-fill mb-2">
                     <input class="form-control" name="category" type="text" placeholder="Category Name">
-                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="submit" class="btn btn-success">Add</button>
                   </form>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <h4 class="fw-bold">Ürünler</h4>
-                <button type="submit" class="btn btn-primary">Save</button>
+                {{#if _selectedCategory}}
+                
+                {{else}}
+                <p class="text-center py-4">Seçili kategori yok.</p>          
+                {{/if}}
             </div>
         </div>
 
