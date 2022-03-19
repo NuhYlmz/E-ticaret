@@ -27,3 +27,17 @@ FlowRouter.route('/blog/:id', {
     this.render('publicLayoutDefault', { page: 'publicPageBlog' });
   }
 });
+
+FlowRouter.route('/shop', {
+  name: 'public.shop',
+  action: function (params, queryParams) {
+    this.render('publicLayoutDefault', { page: 'publicPageShop' });
+  }
+});
+
+FlowRouter.route('/manageshop', {
+  name: 'public.manageshop',
+  action: function (params, queryParams) {
+    this.render('publicLayoutDefault', { page: 'publicPageManageShop' });
+  }
+});

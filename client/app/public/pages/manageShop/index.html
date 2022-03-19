@@ -1,0 +1,32 @@
+<template name="publicPageManageShop">
+    {{#let _categories=(state.get 'categories')}}  
+    <div class="container py-2">
+
+
+        <div class="row">
+            <div class="col-md-3">
+                <h4 class="fw-bold">Kategoriler</h4>
+                <ul class="list-group">
+                    {{#each _categories}}
+                    <li class="list-group-item"> 
+                          <a href="#" class="brd-categories-select text-dark">{{name}}</a> 
+                          <button type="delete" class="btn btn-primary " style="float:right">Delete</button>
+                    </li>
+                    {{/each}}
+                  </ul>
+
+                <form id="brdCategoryCreateForm" class="d-flex gap-2 flex-fill mb-2">
+                    <input class="form-control" name="category" type="text" placeholder="Category Name">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                  </form>
+            </div>
+            <div class="col-md-9">
+                <h4 class="fw-bold">Ürünler</h4>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+
+    </div>
+    
+    {{/let}}
+</template>
