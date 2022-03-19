@@ -1,7 +1,6 @@
 Template.publicPageManageShop.onCreated(function () {
     this.state = new ReactiveDict(null, {
         categories: [],
-        selectedCategory: null
     });
 
 });
@@ -71,9 +70,39 @@ Template.publicPageManageShop.events({
         });
 
     },
-    'click .brd-category-select': function (event, template) {
+    'submit form#brdProductCreateForm': function (event, template) {
         event.preventDefault();
-        console.log(this);
-        template.state.set('selectedCategory', this);
-      }
+        
+        const name = event.target.productNameInput.value;
+
+        const categoryId = event.target.productCategorySelect.value;
+        console.log(event);
+
+        const imageUrl = event.target.productImageLink.value;
+        console.log(event.target.productCategorySelect.value);
+
+
+
+
+        const obj = {
+            product: {
+                name: name,
+                categoryId: categoryId,
+                imageUrl: imageUrl
+            }
+        }
+
+        Meteor.call('product.create', obj, function (error, result) {
+
+            if (error) {
+                console.log(error);
+                return;
+            }
+
+            AppUtil.refreshTokens.set('refreshShopManage', Random.id());
+            console.log(result);
+            event.target.reset();
+        });
+
+    },
 });
