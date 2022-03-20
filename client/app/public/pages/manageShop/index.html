@@ -1,57 +1,97 @@
 <template name="publicPageManageShop">
-    {{#let _categories=(state.get 'categories')}}  
-    <div class="container py-2">
+  {{#let _categories=(state.get 'categories') _products=(state.get 'products')}}
+  <div class="container py-2">
 
 
-        <div class="row">
-            <div class="col-md-5">
-                <h4 class="fw-bold">Kategoriler</h4>
-                <hr>
-                <ul class="list-group">
-                    {{#each _categories}}
-                    <li class="list-group-item {{#if eq _id _selectedCategory._id}}active{{/if}}"> 
-                          {{name}}
-                          <button class="btn btn-danger categoryDel" style="float:right">Delete</button>
-                    </li>
-                    {{/each}}
-                  </ul>
-                  <hr>
-                <form id="brdCategoryCreateForm" class="d-flex gap-2 flex-fill mb-2">
-                    <input class="form-control" name="category" type="text" placeholder="Category Name">
-                    <button type="submit" class="btn btn-success">Add</button>
-                  </form>
-            </div>
+    <div class="row">
+      <div class="col-md-5">
+        <h4 class="fw-bold">Kategoriler</h4>
+        <hr>
+        <form id="brdCategoryCreateForm">
+          <div class="form-group">
+            <label for="productNameInput">Kategori İsmi :</label>
+            <input type="text" class="form-control" id="productNameInput" placeholder="Kategori ismini giriniz.">
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="categoryParentSelect">Üst Kategori :</label>
+            <select class="form-control" id="categoryParentSelect">
+              <option value="default">Üst Kategori Yok</option>
+              {{#each _categories}}
+              <option value="{{_id}}">{{name}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-success">Kategori Ekle</button>
+        </form>
 
-            <div class="col-md-5">
-                <h4 class="fw-bold">Ürünler</h4>
-                <hr>
-                <form id="brdProductCreateForm">
-                    <div class="form-group">
-                      <label for="productNameInput">Ürün İsmi :</label>
-                      <input type="text" class="form-control" id="productNameInput" placeholder="Ürün ismini giriniz.">
-                    </div>
-                    <br>
-                    <div class="form-group">
-                      <label for="productCategorySelect">Kategori</label>
-                      <select class="form-control" id="productCategorySelect">
-                        {{#each _categories}}
-                        <option value="{{_id}}">{{name}}</option>
-                        {{/each}}
-                      </select>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label for="productImageLink">Ürün Resmi :</label>
-                        <input type="text" class="form-control" id="productImageLink" placeholder="Ürün resim linkini giriniz.">
-                      </div>
-                      <br>
-                      <button type="submit" class="btn btn-success">Ürünü Ekle</button>
-                  </form>
+        <hr>
+        <ul class="list-group">
+          {{#each _categories}}
+          <li class="list-group-item {{#if eq _id _selectedCategory._id}}active{{/if}}">
+            {{name}}
+            <button class="btn btn-danger categoryDel" style="float:right">Delete</button>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
 
-            </div>
-        </div>
-
+      <div class="col-md-5">
+        <h4 class="fw-bold">Ürünler</h4>
+        <hr>
+        <form id="brdProductCreateForm">
+          <div class="form-group">
+            <label for="productNameInput">Ürün İsmi :</label>
+            <input type="text" class="form-control" id="productNameInput" placeholder="Ürün ismini giriniz.">
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="productCategorySelect">Kategori :</label>
+            <select class="form-control" id="productCategorySelect">
+              {{#each _categories}}
+              <option value="{{_id}}">{{name}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="productImageLink">Ürün Resmi :</label>
+            <input type="text" class="form-control" id="productImageLink" placeholder="Ürün resim linkini giriniz.">
+          </div>
+          <br>
+          <button type="submit" class="btn btn-success">Ürünü Ekle</button>
+        </form>
+        <hr>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Ürün İsmi</th>
+              <th scope="col">Kategori</th>
+              <th scope="col">Ürün Resmi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each _products}}
+            <tr>
+              <td width="30%">{{name}}</td>
+              <td width="30%">
+                <!-- {{categoryId}} -->
+                {{#each _categories}}
+                {{#if eq _id ../categoryId}}
+                {{name}}           
+                {{/if}}
+                {{/each}}
+              </td>
+              <td width="30%">{{imageUrl}}</td>
+            </tr>               
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
     </div>
-    
-    {{/let}}
+
+  </div>
+
+  {{/let}}
 </template>
