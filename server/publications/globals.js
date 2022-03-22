@@ -9,3 +9,7 @@ Meteor.publish(null, function () {
 Meteor.publish('chat.messages', function (roomId) {
   return Messages.find({ roomId: roomId });
 });
+
+Meteor.publish('shop.products', function (categoryIds) {
+  return Products.find({ categoryId: {$in: categoryIds} });
+});

@@ -47,18 +47,20 @@ Template.publicPageManageShop.events({
         event.preventDefault();
         const name = event.target.productNameInput.value;
         const parentId = event.target.categoryParentSelect.value;
+        const parentLevel = event.target.categoryParentSelect.selectedOptions[0].dataset.level
+        console.log(parentLevel);
         const obj = parentId=="default" ? {
             category: {
-                name: name
+                name: name,
             }
         } : 
         {
             category: {
                 name: name,
-                parentId: parentId
+                parentId: parentId,
             }
         };
-        console.log(obj);
+        //console.log(obj);
         Meteor.call('category.create', obj, function (error, result) {
 
             if (error) {
@@ -92,16 +94,36 @@ Template.publicPageManageShop.events({
         });
 
     },
+    'click .productDel': function (event, template) {
+        event.preventDefault();
+        const product = this;
+
+        LoadingLine.show()
+
+        Meteor.call('product.delete', {
+            _id: product._id
+        }, function (error, result) {
+            LoadingLine.hide()
+
+            if (error) {
+                ErrorHandler.show(error)
+                return;
+            }
+
+            AppUtil.refreshTokens.set('refreshShopManage', Random.id());
+        });
+
+    },
     'submit form#brdProductCreateForm': function (event, template) {
         event.preventDefault();
 
         const name = event.target.productNameInput.value;
 
         const categoryId = event.target.productCategorySelect.value;
-        console.log(event);
+        //console.log(event);
 
         const imageUrl = event.target.productImageLink.value;
-        console.log(event.target.productCategorySelect.value);
+        //console.log(event.target.productCategorySelect.value);
 
 
 

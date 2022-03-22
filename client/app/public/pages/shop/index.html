@@ -1,4 +1,53 @@
 <template name="publicPageShop">
-    <p>Shop sayfası</p>
+    {{#let _categories=(state.get 'categories')}}
+
+
+
+    <div class="container py-2">
+        <div class="row">
+            <div class="col-md-3">
+                <h4 class="fw-bold">Filters</h4>
+                <hr>
+                <form id="brdCategorySelect">
+                    {{#each _categories}}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{name}}" id="{{_id}}" checked>
+                        <label class="form-check-label" for="{{_id}}">
+                            {{name}}
+                        </label>
+                    </div>
+                    {{/each}}
+                    <button type="submit" class="btn btn-success">Filtre Uygula</button>
+                </form>
+            </div>
+            <div class="col-md-9">
+                <h4 class="fw-bold">Products</h4>
+                <hr>
+                <br>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                {{#each products}}
+                <div class="card" style="width: 19rem; margin:10px;">
+                    <img src="{{imageUrl}}" class="card-img-top" alt="{{name}}" style="width: 17.5rem; height: 18rem">
+                    <div class="card-body ">
+                      <h5 class="card-title">{{name}}</h5>
+                      <p class="card-text"> Kategori: 
+                        {{#each _categories}}
+                        {{#if eq _id ../categoryId}}
+                        {{name}}           
+                        {{/if}}
+                        {{/each}}
+                    </p>
+                    <div class="text-center">
+                      <a href="#" class="btn btn-primary">Ürüne Git</a>
+                    </div>
+                    </div>
+                  </div> 
+                  {{/each}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {{/let}}
 
 </template>
