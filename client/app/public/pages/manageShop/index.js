@@ -47,21 +47,56 @@ Template.publicPageManageShop.events({
         event.preventDefault();
         const name = event.target.productNameInput.value;
         const parentId = event.target.categoryParentSelect.value;
-        const parentLevel = event.target.categoryParentSelect.selectedOptions[0].dataset.level
-        console.log(parentLevel);
-        const obj = parentId=="default" ? {
-            category: {
-                name: name,
+        //const parentLevel = event.target.categoryParentSelect.selectedOptions[0].dataset.level
+        const level = event.target.categoryParentSelect.selectedOptions[0].dataset.level;
+        console.log(level);
+        let obj1=Object;
+        if (parentId=="default") {
+            obj1={
+                category: {
+                    name: name,
+                    level: 0,
+                }
             }
-        } : 
-        {
-            category: {
-                name: name,
-                parentId: parentId,
+            console.log("has no parent level 0");
+        }else if(level==0){
+            obj1={
+                category: {
+                    name: name,
+                    parentId: parentId,
+                    level: 1,
+                }
             }
-        };
+            console.log("has parent + level 1")
+        }else if(level==1){
+            obj1={
+                category: {
+                    name: name,
+                    parentId: parentId,
+                    level: 2,
+                }
+            }
+            console.log("has parents + level 2");
+        }else{
+            console.log("cant create too much level");
+            return;
+        }
+
+        // let obj = parentId=="default" ? {
+        //     category: {
+        //         name: name,
+        //         level: 0,
+        //     }
+        // } : 
+        // {
+        //     category: {
+        //         name: name,
+        //         parentId: parentId,
+        //         level: 1,
+        //     }
+        // };
         //console.log(obj);
-        Meteor.call('category.create', obj, function (error, result) {
+        Meteor.call('category.create', obj1, function (error, result) {
 
             if (error) {
                 console.log(error);

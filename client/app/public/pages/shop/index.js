@@ -7,9 +7,13 @@ Template.publicPageShop.onCreated(function () {
     });
 
 });
-
+Template.publicPageShop.onRendered(function () {
+    console.log(document.querySelectorAll('input[type="checkbox"]:checked'));
+})
 Template.publicPageShop.onRendered(function () {
     const self = this;
+    
+
 
     this.autorun(function () {
         AppUtil.refreshTokens.get('refreshShop');
@@ -66,10 +70,9 @@ Template.publicPageShop.onRendered(function () {
         //     //self.state.set('filteredproducts', result.products);
         // });
 
-       
-
-
     });
+
+
 });
 
 Template.publicPageShop.helpers({

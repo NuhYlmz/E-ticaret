@@ -10,13 +10,30 @@
                 <hr>
                 <form id="brdCategorySelect">
                     {{#each _categories}}
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="{{name}}" id="{{_id}}" checked>
-                        <label class="form-check-label" for="{{_id}}">
-                            {{name}}
-                        </label>
+                    {{#if eq level 0}}               
+                    <div class="form-check" style="padding-left:2em">
+                        <input class="form-check-input" type="checkbox" value="{{name}}" data-level="{{level}}" id="{{_id}}" checked>
+                        <label class="form-check-label" for="{{_id}}">{{name}}</label>
                     </div>
+                    {{#each _categories}}
+                    {{#if eq parentId ../_id}}
+                    <div class="form-check" style="padding-left:3em">
+                        <input class="form-check-input" type="checkbox" value="{{name}}" data-level="{{level}}" id="{{_id}}" checked>
+                        <label class="form-check-label" for="{{_id}}">{{name}}</label>
+                    </div>
+                    {{#each _categories}}
+                    {{#if eq parentId ../_id}}
+                    <div class="form-check" style="padding-left:4em">
+                        <input class="form-check-input" type="checkbox" value="{{name}}" data-level="{{level}}" id="{{_id}}" checked>
+                        <label class="form-check-label" for="{{_id}}">{{name}}</label>
+                    </div>
+                    {{/if}}
                     {{/each}}
+                    {{/if}}
+                    {{/each}}
+                    {{/if}}
+                    {{/each}}
+                    <br>
                     <button type="submit" class="btn btn-success">Filtre Uygula</button>
                 </form>
             </div>

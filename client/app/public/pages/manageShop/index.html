@@ -4,7 +4,7 @@
 
 
     <div class="row">
-      <div class="col-md-5">
+      <div class="col-md-6">
         <h4 class="fw-bold">Kategoriler</h4>
         <hr>
         <form id="brdCategoryCreateForm">
@@ -18,7 +18,7 @@
             <select class="form-control" id="categoryParentSelect">
               <option value="default">Üst Kategori Yok</option>
               {{#each _categories}}
-              <option value="{{_id}}" data-level="{{parentId}}">{{name}}</option>
+              <option value="{{_id}}" data-level="{{level}}">{{name}}</option>
               {{/each}}
             </select>
           </div>
@@ -38,7 +38,7 @@
         </ul>
       </div>
 
-      <div class="col-md-5">
+      <div class="col-md-6">
         <h4 class="fw-bold">Ürünler</h4>
         <hr>
         <form id="brdProductCreateForm">
@@ -78,8 +78,8 @@
             {{#each _products}}
             <tr>
               <td>{{add @index}}</td>
-              <td width="30%">{{name}}</td>
-              <td width="30%">
+              <td>{{name}}</td>
+              <td>
                 <!-- {{categoryId}} -->
                 {{#each _categories}}
                 {{#if eq _id ../categoryId}}
@@ -87,8 +87,8 @@
                 {{/if}}
                 {{/each}}
               </td>
-              <td width="30%">{{imageUrl}}</td>
-              <th width="10%"> <i class="fas fa-trash productDel"></i></th>
+              <td style ="word-break:break-all;">{{imageUrl}}</td>
+              <th> <i class="fas fa-trash productDel"></i></th>
             </tr>               
             {{/each}}
           </tbody>
