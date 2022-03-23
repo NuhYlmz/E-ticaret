@@ -2,9 +2,8 @@ Template.publicPageManageShop.onCreated(function () {
     this.state = new ReactiveDict(null, {
         categories: [],
         products: [],
-        i:0,
+        i: 0,
     });
-
 });
 
 Template.publicPageManageShop.onRendered(function () {
@@ -19,7 +18,7 @@ Template.publicPageManageShop.onRendered(function () {
                 return;
             }
 
-            console.log(result);
+            //console.log(result);
             self.state.set('categories', result.categories);
         });
         Meteor.call('product.list', {}, function (error, result) {
@@ -29,17 +28,17 @@ Template.publicPageManageShop.onRendered(function () {
                 return;
             }
 
-            console.log(result);
+            //console.log(result);
             self.state.set('products', result.products);
         });
     });
 });
 
 Template.publicPageManageShop.helpers({
-    counter: function() {
+    counter: function () {
         Template.instance().i++;
         return Template.instance().i;
-      }
+    }
 });
 
 Template.publicPageManageShop.events({
@@ -47,56 +46,36 @@ Template.publicPageManageShop.events({
         event.preventDefault();
         const name = event.target.productNameInput.value;
         const parentId = event.target.categoryParentSelect.value;
-        //const parentLevel = event.target.categoryParentSelect.selectedOptions[0].dataset.level
         const level = event.target.categoryParentSelect.selectedOptions[0].dataset.level;
-        console.log(level);
-        let obj1=Object;
-        if (parentId=="default") {
-            obj1={
+        let obj1 = Object;
+        if (parentId == "default") {
+            obj1 = {
                 category: {
                     name: name,
                     level: 0,
                 }
             }
-            console.log("has no parent level 0");
-        }else if(level==0){
-            obj1={
+        } else if (level == 0) {
+            obj1 = {
                 category: {
                     name: name,
                     parentId: parentId,
                     level: 1,
                 }
             }
-            console.log("has parent + level 1")
-        }else if(level==1){
-            obj1={
+        } else if (level == 1) {
+            obj1 = {
                 category: {
                     name: name,
                     parentId: parentId,
                     level: 2,
                 }
             }
-            console.log("has parents + level 2");
-        }else{
+        } else {
             alert("Can't create");
-            console.log("cant create too much level");
             return;
         }
 
-        // let obj = parentId=="default" ? {
-        //     category: {
-        //         name: name,
-        //         level: 0,
-        //     }
-        // } : 
-        // {
-        //     category: {
-        //         name: name,
-        //         parentId: parentId,
-        //         level: 1,
-        //     }
-        // };
-        //console.log(obj);
         Meteor.call('category.create', obj1, function (error, result) {
 
             if (error) {
@@ -105,7 +84,7 @@ Template.publicPageManageShop.events({
             }
 
             AppUtil.refreshTokens.set('refreshShopManage', Random.id());
-            console.log(result);
+            //console.log(result);
             event.target.reset();
         });
 
@@ -133,7 +112,6 @@ Template.publicPageManageShop.events({
     'click .productDel': function (event, template) {
         event.preventDefault();
         const product = this;
-
         LoadingLine.show()
 
         Meteor.call('product.delete', {
@@ -154,16 +132,8 @@ Template.publicPageManageShop.events({
         event.preventDefault();
 
         const name = event.target.productNameInput.value;
-
         const categoryId = event.target.productCategorySelect.value;
-        //console.log(event);
-
         const imageUrl = event.target.productImageLink.value;
-        //console.log(event.target.productCategorySelect.value);
-
-
-
-
         const obj = {
             product: {
                 name: name,
@@ -171,16 +141,14 @@ Template.publicPageManageShop.events({
                 imageUrl: imageUrl
             }
         }
-
         Meteor.call('product.create', obj, function (error, result) {
 
             if (error) {
                 console.log(error);
                 return;
             }
-
             AppUtil.refreshTokens.set('refreshShopManage', Random.id());
-            console.log(result);
+            //console.log(result);
             event.target.reset();
         });
 
