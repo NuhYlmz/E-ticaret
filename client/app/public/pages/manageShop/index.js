@@ -78,6 +78,7 @@ Template.publicPageManageShop.events({
             }
             console.log("has parents + level 2");
         }else{
+            alert("Can't create");
             console.log("cant create too much level");
             return;
         }

@@ -1,5 +1,28 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
+const routesAuth = FlowRouter.group({
+  prefix: '/shop',
+  name: 'shop',
+  triggersEnter: [MustSignIn],
+});
+
+routesAuth.route('/', {
+  name: 'shop.product',
+  action: function (params, queryParams) {
+    this.render('publicLayoutDefault', { page: 'publicPageShop' });
+  }
+});
+
+routesAuth.route('/manage', {
+  name: 'shop.manage',
+  action: function (params, queryParams) {
+    this.render('publicLayoutDefault', { page: 'publicPageManageShop' });
+  }
+});
+
+
+
+
 FlowRouter.route('/', {
   name: 'public.home',
   action: function (params, queryParams) {
@@ -28,16 +51,16 @@ FlowRouter.route('/blog/:id', {
   }
 });
 
-FlowRouter.route('/shop', {
-  name: 'public.shop',
-  action: function (params, queryParams) {
-    this.render('publicLayoutDefault', { page: 'publicPageShop' });
-  }
-});
+// FlowRouter.route('/shop', {
+//   name: 'public.shop',
+//   action: function (params, queryParams) {
+//     this.render('publicLayoutDefault', { page: 'publicPageShop' });
+//   }
+// });
 
-FlowRouter.route('/manageshop', {
-  name: 'public.manageshop',
-  action: function (params, queryParams) {
-    this.render('publicLayoutDefault', { page: 'publicPageManageShop' });
-  }
-});
+// FlowRouter.route('/manageshop', {
+//   name: 'public.manageshop',
+//   action: function (params, queryParams) {
+//     this.render('publicLayoutDefault', { page: 'publicPageManageShop' });
+//   }
+// });
