@@ -1,0 +1,68 @@
+<template name="publicPageShopProduct">
+  {{#let _categories=(state.get 'categories') _products=(state.get 'products')}}
+    <div class="container py-2">
+      <div class="row justify-content-center">
+        <div class="col-md-4 border-end">
+          <h3 class="fw-bold">Ürün Ekleme</h3>
+          <hr>
+          <form id="brdProductCreateForm">
+            <div class="form-group">
+              <label for="productNameInput">Ürün İsmi :</label>
+              <input type="text" class="form-control" id="productNameInput" placeholder="Ürün ismini giriniz.">
+            </div>
+            <br>
+            <div class="form-group">
+              <label for="productCategorySelect">Kategori :</label>
+              <select class="form-control" id="productCategorySelect">
+                {{#each _categories}}
+                  <option value="{{_id}}">{{name}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <br>
+            <div class="form-group">
+              <label for="productImageLink">Ürün Resmi :</label>
+              <input type="text" class="form-control" id="productImageLink" placeholder="Ürün resim linkini giriniz.">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-success">Ürünü Ekle</button>
+          </form>
+        </div>
+        <div class="col-md-4">
+          <h3 class="fw-bold">Ürün Listesi</h3>
+          <hr>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Ürün İsmi</th>
+                <th scope="col">Kategori</th>
+                <th scope="col">Ürün Resmi</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each _products}}
+                <tr>
+                  <td class="fw-bold">{{add @index}}</td>
+                  <td>{{name}}</td>
+                  <td>
+                    <!-- {{categoryId}} -->
+                    {{#each _categories}}
+                      {{#if eq _id ../categoryId}}
+                        {{name}}
+                      {{/if}}
+                    {{/each}}
+                  </td>
+                  <td style="word-break:break-all;">{{imageUrl}}</td>
+                  <td><button class="btn btn-danger btn-sm deletebtn productDel"><i class="fas fa-trash"></i></button>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  {{/let}}
+</template>

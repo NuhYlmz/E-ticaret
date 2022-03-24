@@ -1,10 +1,8 @@
 <template name="publicPageShopCategory">
   {{#let _categories=(state.get 'categories') _products=(state.get 'products')}}
     <div class="container py-2">
-
-
       <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-4 border-end">
           <h3 class="fw-bold">Kategori Ekleme</h3>
           <hr>
           <form id="brdCategoryCreateForm">
@@ -26,22 +24,10 @@
             <button type="submit" class="btn btn-success">Kategori Ekle</button>
           </form>
 
-          <hr>
-
         </div>
-
         <div class="col-md-4">
           <h3 class="fw-bold">Kayıtlı Kategoriler</h3>
           <hr>
-          <!-- <ul class="list-group">
-            {{#each _categories}}
-              <li class="list-group-item">
-                {{name}}
-                <button class="btn btn-danger btn-sm deletebtn categoryDel"><i class="fas fa-trash"></i></button>
-              </li>
-            {{/each}}
-          </ul> -->
-
 
           {{#each _categories}}
             <ul class="list-group">
@@ -58,7 +44,6 @@
                           <h6>{{name}} <button class="btn btn-danger btn-sm deletebtn categoryDel"><i
                                 class="fas fa-trash"></i></button></h6>
                           {{#each _categories}}
-                          
                             <ul class="list-group">
                               {{#if eq parentId ../_id}}
                                 <!-- torun -->
@@ -79,13 +64,8 @@
               {{/if}}
             </ul>
           {{/each}}
-
-
-
         </div>
       </div>
-
     </div>
-
   {{/let}}
 </template>

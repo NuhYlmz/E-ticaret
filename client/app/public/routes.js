@@ -19,6 +19,12 @@ routesAuth.route('/category', {
     this.render('publicLayoutDefault', { page: 'publicPageShopCategory' });
   }
 });
+routesAuth.route('/product', {
+  name: 'shop.manage',
+  action: function (params, queryParams) {
+    this.render('publicLayoutDefault', { page: 'publicPageShopProduct' });
+  }
+});
 
 
 routesAuth.route('/manage', {
