@@ -13,6 +13,14 @@ routesAuth.route('/', {
   }
 });
 
+routesAuth.route('/category', {
+  name: 'shop.manage',
+  action: function (params, queryParams) {
+    this.render('publicLayoutDefault', { page: 'publicPageShopCategory' });
+  }
+});
+
+
 routesAuth.route('/manage', {
   name: 'shop.manage',
   action: function (params, queryParams) {

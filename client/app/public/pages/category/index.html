@@ -1,0 +1,91 @@
+<template name="publicPageShopCategory">
+  {{#let _categories=(state.get 'categories') _products=(state.get 'products')}}
+    <div class="container py-2">
+
+
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <h3 class="fw-bold">Kategori Ekleme</h3>
+          <hr>
+          <form id="brdCategoryCreateForm">
+            <div class="form-group">
+              <label for="productNameInput">Kategori İsmi :</label>
+              <input type="text" class="form-control" id="productNameInput" placeholder="Kategori ismini giriniz.">
+            </div>
+            <br>
+            <div class="form-group">
+              <label for="categoryParentSelect">Üst Kategori :</label>
+              <select class="form-control" id="categoryParentSelect">
+                <option value="default">Üst Kategori Yok</option>
+                {{#each _categories}}
+                  <option value="{{_id}}" data-level="{{level}}">{{name}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-success">Kategori Ekle</button>
+          </form>
+
+          <hr>
+
+        </div>
+
+        <div class="col-md-4">
+          <h3 class="fw-bold">Kayıtlı Kategoriler</h3>
+          <hr>
+          <!-- <ul class="list-group">
+            {{#each _categories}}
+              <li class="list-group-item">
+                {{name}}
+                <button class="btn btn-danger btn-sm deletebtn categoryDel"><i class="fas fa-trash"></i></button>
+              </li>
+            {{/each}}
+          </ul> -->
+
+
+          {{#each _categories}}
+            <ul class="list-group">
+              {{#if eq level 0}}
+                <!-- main -->
+                <li class="list-group-item list-group-item-primary" >
+                  <h5>{{name}} <button class="btn btn-danger btn-sm deletebtn categoryDel"><i
+                        class="fas fa-trash"></i></button></h5>
+                  {{#each _categories}}
+                    <ul class="list-group">
+                      {{#if eq parentId ../_id}}
+                        <!-- sub -->
+                        <li class="list-group-item list-group-item-secondary">
+                          <h6>{{name}} <button class="btn btn-danger btn-sm deletebtn categoryDel"><i
+                                class="fas fa-trash"></i></button></h6>
+                          {{#each _categories}}
+                          
+                            <ul class="list-group">
+                              {{#if eq parentId ../_id}}
+                                <!-- torun -->
+                                <li class="list-group-item list-group-item-info">
+                                  <span>{{name}} <button class="btn btn-danger btn-sm deletebtn categoryDel"><i
+                                        class="fas fa-trash"></i></button></span>
+                                </li>
+                                
+                              {{/if}}
+                            </ul>
+                          {{/each}}
+                        </li>
+                      {{/if}}
+                    </ul>
+                  {{/each}}
+                </li>
+                <br>
+              {{/if}}
+            </ul>
+          {{/each}}
+
+
+
+        </div>
+      </div>
+
+    </div>
+
+  {{/let}}
+</template>
