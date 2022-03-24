@@ -11,5 +11,12 @@ Meteor.publish('chat.messages', function (roomId) {
 });
 
 Meteor.publish('shop.products', function (categoryIds) {
-  return Products.find({ categoryId: {$in: categoryIds} });
+
+  const obj = {};
+
+  if (categoryIds.length > 0) {
+    obj.categoryId = { $in: categoryIds }
+  }
+
+  return Products.find(obj);
 });
