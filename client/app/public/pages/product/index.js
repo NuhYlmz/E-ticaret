@@ -13,7 +13,7 @@ Template.publicPageShopProduct.onRendered(function () {
     Meteor.call('category.list', {}, function (error, result) {
 
       if (error) {
-        console.log(error);
+        ErrorHandler.show(error)
         return;
       }
 
@@ -23,7 +23,7 @@ Template.publicPageShopProduct.onRendered(function () {
     Meteor.call('product.list', {}, function (error, result) {
 
       if (error) {
-        console.log(error);
+        ErrorHandler.show(error)
         return;
       }
 
@@ -75,7 +75,7 @@ Template.publicPageShopProduct.events({
     Meteor.call('product.create', obj, function (error, result) {
 
       if (error) {
-        console.log(error);
+        ErrorHandler.show(error)
         return;
       }
       AppUtil.refreshTokens.set('refreshShopManage', Random.id());

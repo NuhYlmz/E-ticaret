@@ -15,8 +15,7 @@ new ValidatedMethod({
       if(parentLevel<2){
         category.level=parentLevel+1;
       }else{
-        console.log("Cant create");
-        return;
+        throw (new Meteor.Error("Daha fazla alt kategori oluşturulamaz."));
       }
     }
   

@@ -16,7 +16,7 @@ Template.publicPageShop.onRendered(function () {
     Meteor.call('category.list', {}, function (error, result) {
 
       if (error) {
-        console.log(error);
+        ErrorHandler.show(error);
         return;
       }
       //console.log(result);

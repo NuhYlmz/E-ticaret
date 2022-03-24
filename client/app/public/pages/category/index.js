@@ -12,7 +12,7 @@ Template.publicPageShopCategory.onRendered(function () {
     Meteor.call('category.list', {}, function (error, result) {
 
       if (error) {
-        console.log(error);
+        ErrorHandler.show(error);
         return;
       }
 
@@ -45,7 +45,8 @@ Template.publicPageShopCategory.events({
 
     Meteor.call('category.create', obj1, function (error, result) {
       if (error) {
-        console.log(error);
+        console.log(error.message);
+        ErrorHandler.show(error.message);
         return;
       }
       AppUtil.refreshTokens.set('refreshShopManage', Random.id());
