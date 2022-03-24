@@ -13,19 +13,22 @@
               <div>
                 {{#if eq level 0}}
                   <div class="form-check" style="padding-left:2em">
-                    <input class="form-check-input" type="checkbox" value="{{name}}" data-level="{{level}}" id="{{_id}}" checked>
+                    <input class="form-check-input" type="checkbox" value="{{name}}" data-level="{{level}}" id="{{_id}}"
+                      checked>
                     <label class="form-check-label" for="{{_id}}">{{name}}</label>
                   </div>
                   {{#each _categories}}
                     {{#if eq parentId ../_id}}
                       <div class="form-check" style="padding-left:3em">
-                        <input class="form-check-input" type="checkbox" value="{{name}}" data-level="{{level}}" id="{{_id}}" checked>
+                        <input class="form-check-input" type="checkbox" value="{{name}}" data-level="{{level}}"
+                          id="{{_id}}" checked>
                         <label class="form-check-label" for="{{_id}}">{{name}}</label>
                       </div>
                       {{#each _categories}}
                         {{#if eq parentId ../_id}}
                           <div class="form-check" style="padding-left:4em">
-                            <input class="form-check-input" type="checkbox" value="{{name}}" data-level="{{level}}" id="{{_id}}" checked>
+                            <input class="form-check-input" type="checkbox" value="{{name}}" data-level="{{level}}"
+                              id="{{_id}}" checked>
                             <label class="form-check-label" for="{{_id}}">{{name}}</label>
                           </div>
                         {{/if}}
@@ -48,7 +51,8 @@
             {{#each products}}
               <div class="col-md-4">
                 <div class="card text-dark bg-light">
-                  <div style="width: 17.5rem; height: 18rem;background:url('{{imageUrl}}') center no-repeat; background-size: contain;margin: 10px auto;">
+                  <div
+                    style="width: 17.5rem; height: 18rem;background:url('{{imageUrl}}') center no-repeat; background-size: contain;margin: 10px auto;">
                   </div>
                   <div class="card-body ">
                     <h5 class="card-title">{{name}}</h5>
