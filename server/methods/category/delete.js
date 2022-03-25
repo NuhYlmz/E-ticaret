@@ -8,6 +8,10 @@ new ValidatedMethod({
   }).validator(),
   run: async function (data) {
     this.unblock();
+    if(Meteor.userId()==null){
+      console.log(Meteor.userId());
+      throw (new Meteor.Error("Kullanıcı girişi yapınız."));
+    }
     const { _id } = data;
     let obj = Categories.findOne({_id: _id})
     let obj2 = Object;

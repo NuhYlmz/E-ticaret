@@ -7,6 +7,7 @@ new ValidatedMethod({
   }).validator(),
   run: function (data) {
     this.unblock();
+    
     const { options } = data
 
     return Fetch(Categories, {}, options, 'categories');

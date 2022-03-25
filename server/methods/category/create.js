@@ -7,6 +7,12 @@ new ValidatedMethod({
   }).validator(),
   run: function (data) {
     this.unblock();
+    if(Meteor.userId()==null){
+      console.log(Meteor.userId());
+      throw (new Meteor.Error("Kullanıcı girişi yapınız."));
+    }
+    
+    
     const { category } = data
     if (category.parentId == 'default') {
       category.level=0;

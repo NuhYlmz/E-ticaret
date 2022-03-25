@@ -1,8 +1,5 @@
 <template name="publicPageShop">
   {{#let _categories=(state.get 'categories')}}
-
-
-
     <div class="container py-2">
       <div class="row">
         <div class="col-md-3">
@@ -10,8 +7,7 @@
           <hr>
           <form id="brdCategorySelect">
             {{#each _categories}}
-              <div>
-                {{#if eq level 0}}
+              <div>{{#if eq level 0}}
                   <div class="form-check" style="padding-left:2em">
                     <input class="form-check-input" type="checkbox" value="{{name}}" data-level="{{level}}" id="{{_id}}"
                       checked>
@@ -37,7 +33,6 @@
                   {{/each}}
                 {{/if}}
               </div>
-
             {{/each}}
             <br>
             <button type="submit" class="btn btn-success fiterbtn">Filtre Uygula</button>
@@ -71,10 +66,8 @@
               </div>
             {{/each}}
           </div>
-
         </div>
       </div>
     </div>
   {{/let}}
-
 </template>

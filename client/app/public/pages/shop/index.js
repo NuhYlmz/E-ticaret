@@ -3,26 +3,27 @@ Template.publicPageShop.onCreated(function () {
     categories: [],
     filter: [],
   });
+
 });
 
 Template.publicPageShop.onRendered(function () {
   const self = this;
+
   this.autorun(function () {
     self.productSub = Meteor.subscribe('shop.products', self.state.get("filter"));
   });
+
   this.autorun(function () {
     AppUtil.refreshTokens.get('refreshShop');
-
     Meteor.call('category.list', {}, function (error, result) {
-
       if (error) {
-        ErrorHandler.show(error);
+        ErrorHandler.show(error.message);
         return;
       }
-      //console.log(result);
       self.state.set('categories', result.categories);
     });
   });
+
 });
 
 Template.publicPageShop.helpers({
@@ -42,7 +43,6 @@ Template.publicPageShop.events({
       }
     }
     Template.instance().state.set('filter', obj);
-    //console.log(Template.instance().state.get("filter"));
     AppUtil.refreshTokens.set('refreshShop', Random.id());
   },
 });

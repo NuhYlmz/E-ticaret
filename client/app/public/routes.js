@@ -14,26 +14,25 @@ routesAuth.route('/', {
 });
 
 routesAuth.route('/category', {
-  name: 'shop.manage',
+  name: 'shop.manageCategoty',
   action: function (params, queryParams) {
     this.render('publicLayoutDefault', { page: 'publicPageShopCategory' });
   }
 });
 routesAuth.route('/product', {
-  name: 'shop.manage',
+  name: 'shop.manageProduct',
   action: function (params, queryParams) {
     this.render('publicLayoutDefault', { page: 'publicPageShopProduct' });
   }
 });
 
 
-routesAuth.route('/manage', {
-  name: 'shop.manage',
+FlowRouter.route('/publictest', {
+  name: 'public.test',
   action: function (params, queryParams) {
     this.render('publicLayoutDefault', { page: 'publicPageManageShop' });
   }
 });
-
 
 
 

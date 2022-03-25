@@ -55,6 +55,7 @@ Template.publicPageManageShop.events({
 
     Meteor.call('category.create', obj1, function (error, result) {
       if (error) {
+        ErrorHandler.show(error.message);
         console.log(error);
         return;
       }
@@ -74,7 +75,7 @@ Template.publicPageManageShop.events({
       LoadingLine.hide()
 
       if (error) {
-        ErrorHandler.show(error)
+        ErrorHandler.show(error.message);
         return;
       }
 
@@ -92,7 +93,7 @@ Template.publicPageManageShop.events({
       LoadingLine.hide()
 
       if (error) {
-        ErrorHandler.show(error)
+        ErrorHandler.show(error.message);
         return;
       }
 
@@ -115,6 +116,7 @@ Template.publicPageManageShop.events({
     Meteor.call('product.create', obj, function (error, result) {
 
       if (error) {
+        ErrorHandler.show(error.message);
         console.log(error);
         return;
       }

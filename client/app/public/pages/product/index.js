@@ -9,28 +9,26 @@ Template.publicPageShopProduct.onRendered(function () {
   const self = this;
 
   this.autorun(function () {
-    AppUtil.refreshTokens.get('refreshShopManage');
     Meteor.call('category.list', {}, function (error, result) {
-
       if (error) {
-        ErrorHandler.show(error)
+        ErrorHandler.show(error.message);
         return;
       }
-
-      //console.log(result);
       self.state.set('categories', result.categories);
     });
-    Meteor.call('product.list', {}, function (error, result) {
+  });
 
+  this.autorun(function () {
+    AppUtil.refreshTokens.get('refreshShopProduct');
+    Meteor.call('product.list', {}, function (error, result) {
       if (error) {
-        ErrorHandler.show(error)
+        ErrorHandler.show(error.message);
         return;
       }
-
-      //console.log(result);
       self.state.set('products', result.products);
     });
   });
+
 });
 
 Template.publicPageShopProduct.helpers({
@@ -41,24 +39,21 @@ Template.publicPageShopProduct.helpers({
 });
 
 Template.publicPageShopProduct.events({
-
   'click .productDel': function (event, template) {
     event.preventDefault();
     const product = this;
-    LoadingLine.show()
+    LoadingLine.show();
+
     Meteor.call('product.delete', {
       _id: product._id
     }, function (error, result) {
       LoadingLine.hide()
-
       if (error) {
-        ErrorHandler.show(error)
+        ErrorHandler.show(error.message);
         return;
       }
-
-      AppUtil.refreshTokens.set('refreshShopManage', Random.id());
+      AppUtil.refreshTokens.set('refreshShopProduct', Random.id());
     });
-
   },
   'submit form#brdProductCreateForm': function (event, template) {
     event.preventDefault();
@@ -73,15 +68,12 @@ Template.publicPageShopProduct.events({
       }
     }
     Meteor.call('product.create', obj, function (error, result) {
-
       if (error) {
-        ErrorHandler.show(error)
+        ErrorHandler.show(error.message);
         return;
       }
-      AppUtil.refreshTokens.set('refreshShopManage', Random.id());
-      //console.log(result);
+      AppUtil.refreshTokens.set('refreshShopProduct', Random.id());
       event.target.reset();
     });
-
   },
 });
