@@ -26,16 +26,6 @@ routesAuth.route('/product', {
   }
 });
 
-
-FlowRouter.route('/publictest', {
-  name: 'public.test',
-  action: function (params, queryParams) {
-    this.render('publicLayoutDefault', { page: 'publicPageManageShop' });
-  }
-});
-
-
-
 FlowRouter.route('/', {
   name: 'public.home',
   action: function (params, queryParams) {
