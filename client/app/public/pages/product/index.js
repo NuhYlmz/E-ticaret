@@ -44,9 +44,7 @@ Template.publicPageShopProduct.events({
     const product = this;
     LoadingLine.show();
 
-    Meteor.call('product.delete', {
-      _id: product._id
-    }, function (error, result) {
+    Meteor.call('product.delete', { _id: product._id}, function (error, result) {
       LoadingLine.hide()
       if (error) {
         ErrorHandler.show(error.message);

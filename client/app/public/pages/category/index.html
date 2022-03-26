@@ -14,7 +14,7 @@
             <div class="form-group">
               <label for="categoryParentSelect">Üst Kategori :</label>
               <select class="form-control" id="categoryParentSelect">
-                <option value="default">Üst Kategori Yok</option>
+                <option value="-1">Üst Kategori Yok</option>
                 {{#each _categories}}
                   <option value="{{_id}}">{{name}}</option>
                 {{/each}}
