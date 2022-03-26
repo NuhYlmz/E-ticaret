@@ -3,30 +3,29 @@ import SimpleSchema from 'simpl-schema';
 
 new ValidatedMethod({
   name: 'category.delete',
+  mixins: [SignedInMixin],
   validate: new SimpleSchema({
     _id: SimpleSchema.RegEx.Id
   }).validator(),
   run: async function (data) {
     this.unblock();
-    if(Meteor.userId()==null){
-      console.log(Meteor.userId());
-      throw (new Meteor.Error("Kullanıcı girişi yapınız."));
-    }
+
     const { _id } = data;
-    let obj = Categories.findOne({_id: _id})
-    let obj2 = Object;
-    if (obj.level == 2) {
-      Categories.remove({ _id: obj._id });
-    }else if(obj.level == 1){
-      Categories.remove({ _id: obj._id });
-      Categories.remove({ parentId: obj._id});
-    }else if(obj.level == 0){
-      obj2= Categories.find( { parentId: obj._id } )
-      obj2.forEach(function(data1){
-        Categories.remove({ parentId: data1._id});
-        Categories.remove({ _id: data1._id });
-      })
-      Categories.remove({ _id: obj._id });
+    let category = Categories.findOne({ _id: _id });
+
+    const categoryIds = [category._id];
+
+    const deleteSubCategory = (_id) => {
+      const categories = Categories.find({ parentId: _id }).fetch();
+
+      categories.forEach(category => {
+        categoryIds.push(category._id);
+        deleteSubCategory(category._id);
+      });
     }
+
+    deleteSubCategory(category._id);
+    Categories.remove({ _id: { $in: categoryIds } })
+
   }
 });

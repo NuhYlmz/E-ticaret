@@ -32,12 +32,17 @@ Template.publicPageShopCategory.events({
     event.preventDefault();
     const name = event.target.productNameInput.value;
     const parentId = event.target.categoryParentSelect.value;
+
     const obj1 = {
       category: {
-        name: name,
-        parentId: parentId,
+        name: name
       }
     }
+
+    if (parentId != '-1') {
+      obj1.parentId = parentId;
+    }
+
     Meteor.call('category.create', obj1, function (error, result) {
       if (error) {
         console.log(error.message);
@@ -51,15 +56,15 @@ Template.publicPageShopCategory.events({
   'click .categoryDel': function (event, template) {
     event.preventDefault();
     const category = this;
+
     LoadingLine.show();
-    Meteor.call('category.delete', {
-      _id: category._id
-    }, function (error, result) {
+    Meteor.call('category.delete', { _id: category._id }, function (error, result) {
       LoadingLine.hide()
       if (error) {
         ErrorHandler.show(error.message);
         return;
       }
+
       AppUtil.refreshTokens.set('refreshShopCategory', Random.id());
     });
   },
